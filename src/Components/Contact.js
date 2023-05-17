@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { JsonView, darkStyles, defaultStyles } from 'react-json-view-lite';
+import { JsonView, defaultStyles } from 'react-json-view-lite';
 import 'react-json-view-lite/dist/index.css';
 
 const Contact = () => {
