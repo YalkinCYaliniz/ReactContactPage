@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { JsonView, darkStyles, defaultStyles } from 'react-json-view-lite';
+import 'react-json-view-lite/dist/index.css';
 
 const Contact = () => {
   const [formStatus, setFormStatus] = useState('Gonder');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [collectData, setCollectedData] = useState('');
 
   const [errors, setErrors] = useState({});
   const [options, setOptions] = useState([]);
@@ -12,11 +15,11 @@ const Contact = () => {
   const isEmail = (email) =>
     /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/i.test(email);
 
- /* const resetForm = () => {
-    setName('');
-    setEmail('');
-    setMessage('');
-  };*/
+  //const resetForm = () => {
+  //  setName('');
+  //  setEmail('');
+  //  setMessage('');
+  //};
 
   const handleChange = (e) => {
     // handle change for the select
@@ -61,6 +64,7 @@ const Contact = () => {
     }
 
     setErrors(errors);
+    setCollectedData(collected);
   };
 
   return (
@@ -138,6 +142,11 @@ const Contact = () => {
           </fieldset>
         </form>
       </div>
+      <JsonView
+        data={collectData}
+        shouldInitiallyExpand={(level) => true}
+        style={defaultStyles}
+      />
     </div>
   );
 };
