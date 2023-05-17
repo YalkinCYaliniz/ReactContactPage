@@ -12,11 +12,11 @@ const Contact = () => {
   const isEmail = (email) =>
     /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/i.test(email);
 
-  const resetForm = () => {
+ /* const resetForm = () => {
     setName('');
     setEmail('');
     setMessage('');
-  };
+  };*/
 
   const handleChange = (e) => {
     // handle change for the select
