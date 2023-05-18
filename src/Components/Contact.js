@@ -8,7 +8,7 @@ const Contact = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
   const [message, setMessage] = useState("");
-  const [collectedData, setCollectedData] = useState(null);
+  const [, setCollectedData] = useState(null);
   const [errors, setErrors] = useState({});
   const [options, setOptions] = useState([]);
   const [selectedRadio, setSelectedRadio] = useState("");
@@ -54,7 +54,6 @@ const Contact = () => {
     const isValid = /^[5]\d{9}$/.test(value);
     setIsValidPhoneNumber(isValid);
   };
-  let collectData = null;
   const onSubmit = (e) => {
     e.preventDefault();
     setFormStatus("Gonderiliyor...");
