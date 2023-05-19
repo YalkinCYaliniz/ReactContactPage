@@ -18,13 +18,11 @@ const Contact = () => {
     const value = e.target.value;
     setEmail(value);
 
-    // E-posta adresinin geçerli bir formata sahip olup olmadığını kontrol et
     const isValid = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value);
     setIsValidEmail(isValid);
   };
 
   const handleChange = (e) => {
-    // handle change for the select
     let options = e.target.options;
     let values = [];
     for (let i = 0, l = options.length; i < l; i++) {
@@ -50,7 +48,6 @@ const Contact = () => {
     const value = e.target.value;
     setPhoneNumber(value);
 
-    // Telefon numarasının 10 haneli olduğunu ve "5" ile başladığını kontrol et
     const isValid = /^[5]\d{9}$/.test(value);
     setIsValidPhoneNumber(isValid);
   };
@@ -58,7 +55,6 @@ const Contact = () => {
     e.preventDefault();
     setFormStatus("Gonderiliyor...");
 
-    // Check for empty fields
     const errors = {};
     if (!name) {
       errors.name = "İsminizi lütfen yazınız";
@@ -83,9 +79,6 @@ const Contact = () => {
       errors.selectedCheckboxes = "Lütfen size nasıl ulaşacağımızı işaretleyin";
     }
 
-    // Add similar checks for other fields
-
-    // If there are errors, update the state and display error messages
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
       setFormStatus("Gonder");
