@@ -92,7 +92,7 @@ const Contact = () => {
       selected_radio: selectedRadio,
       selected_checkboxes: selectedCheckboxes,
     };
-    fetch("http://webprojeyy.infinityfreeapp.com/ileti%C5%9Fimveri", {
+    fetch("http://webprojeyy.infinityfreeapp.com/veri.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -161,7 +161,7 @@ const Contact = () => {
             {error} <br></br>
           </span>
         ))}
-        <form onSubmit={onSubmit} action="../veri.php" method="POST">
+        <form onSubmit={onSubmit} action="http://webprojeyy.infinityfreeapp.com/veri.php" method="POST">
           <fieldset>
             <legend>Iletisim</legend>
             <div className="mb-3">
