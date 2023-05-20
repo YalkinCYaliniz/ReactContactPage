@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "../contact.css";
 const Contact = () => {
   const [formStatus, setFormStatus] = useState("Gonder");
   const [name, setName] = useState("");
@@ -92,6 +92,32 @@ const Contact = () => {
       selected_radio: selectedRadio,
       selected_checkboxes: selectedCheckboxes,
     };
+    fetch("http://webprojeyy.infinityfreeapp.com/ileti%C5%9Fimveri", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(collected),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Error: " + response.status);
+        }
+      })
+      .then((data) => {
+        // Handle the response data if needed
+        console.log(data);
+        setCollectedData(collected);
+        setFormStatus("Gonder");
+        // Reset form fields and errors
+        handleReset();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setFormStatus("Gonder");
+      });
 
     setTimeout(() => {
       if (Object.keys(errors).length === 0) {
@@ -135,7 +161,7 @@ const Contact = () => {
             {error} <br></br>
           </span>
         ))}
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} action="../veri.php" method="POST">
           <fieldset>
             <legend>Iletisim</legend>
             <div className="mb-3">
