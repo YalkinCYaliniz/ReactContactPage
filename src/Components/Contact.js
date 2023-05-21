@@ -92,32 +92,6 @@ const Contact = () => {
       selected_radio: selectedRadio,
       selected_checkboxes: selectedCheckboxes,
     };
-    fetch("http://webprojeyy.infinityfreeapp.com/veri.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(collected),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Error: " + response.status);
-        }
-      })
-      .then((data) => {
-        // Handle the response data if needed
-        console.log(data);
-        setCollectedData(collected);
-        setFormStatus("Gonder");
-        // Reset form fields and errors
-        handleReset();
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setFormStatus("Gonder");
-      });
 
     setTimeout(() => {
       if (Object.keys(errors).length === 0) {
@@ -161,188 +135,183 @@ const Contact = () => {
             {error} <br></br>
           </span>
         ))}
-        <form onSubmit={onSubmit} action="http://webprojeyy.infinityfreeapp.com/veri.php" method="POST">
-          <fieldset>
-            <legend>Iletisim</legend>
-            <div className="mb-3">
-              <label className="form-label" htmlFor="name">
-                İsminiz:
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                id="name"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-              />
+        <fieldset>
+          <legend>Iletisim</legend>
+          <div className="mb-3">
+            <label className="form-label" htmlFor="name">
+              İsminiz:
+            </label>
+            <input
+              className="form-control"
+              type="text"
+              id="name"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+          </div>
+          <div>
+            <div className="container mt-5">
+              <form>
+                <div className="mb-3">
+                  <label className="form-label" htmlFor="email">
+                    E-posta Adresi:
+                  </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="email"
+                    value={email}
+                    onChange={handleEmailChange}
+                  />
+                </div>
+                {email && (
+                  <span style={{ color: isValidEmail ? "green" : "red" }}>
+                    {isValidEmail
+                      ? "Geçerli e-posta adresi"
+                      : "Geçersiz e-posta adresi"}
+                  </span>
+                )}
+              </form>
             </div>
-            <div>
-              <div className="container mt-5">
-                <form>
-                  <div className="mb-3">
-                    <label className="form-label" htmlFor="email">
-                      E-posta Adresi:
-                    </label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      id="email"
-                      value={email}
-                      onChange={handleEmailChange}
-                    />
-                  </div>
-                  {email && (
-                    <span style={{ color: isValidEmail ? "green" : "red" }}>
-                      {isValidEmail
-                        ? "Geçerli e-posta adresi"
-                        : "Geçersiz e-posta adresi"}
-                    </span>
-                  )}
-                </form>
-              </div>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="bolum">Okuduğunuz Bölüm:</label>
-              <br />
-              <input
-                type="radio"
-                id="radio1"
-                name="radioButton"
-                value="pc-müh"
-                checked={selectedRadio === "pc-müh"}
-                onChange={handleRadioChange}
-              />
-              <label htmlFor="radio1">Bilgisayar Mühendsiliği</label>
-              <br />
-              <input
-                type="radio"
-                id="radio2"
-                name="radioButton"
-                value="yazilim"
-                checked={selectedRadio === "yazilim"}
-                onChange={handleRadioChange}
-              />
-              <label htmlFor="radio2">Yazılım Mühendsiliği</label>
-              <br />
-              <input
-                type="radio"
-                id="radio3"
-                name="radioButton"
-                value="bilisim"
-                checked={selectedRadio === "bilisim"}
-                onChange={handleRadioChange}
-              />
-              <label htmlFor="radio3">Bilişim Sistemleri</label>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="interests">İlgilendiğiniz Alanlar:</label>
-              <br></br>
-              <select
-                id="interests"
-                name="interests"
-                size="4"
-                multiple
-                className="select"
-                onChange={handleChange}
-                value={options}
-              >
-                <option value="yapayzeka">Yapay Zeka</option>
-                <option value="siber">Siber Güvenlik</option>
-                <option value="web">Web</option>
-                <option value="veri">Veri Analizi</option>
-                <option value="machine">Makine Öğrenmesi</option>
-                <option value="dil">Doğal Dil İşleme</option>
-              </select>
-            </div>
-            <div>
-              <div className="container mt-5">
-                <form>
-                  <div className="mb-3">
-                    <label className="form-label" htmlFor="phoneNumber">
-                      Telefon Numarası:
-                    </label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      id="phoneNumber"
-                      value={phoneNumber}
-                      onChange={handlePhoneNumberChange}
-                    />
-                  </div>
-                  {phoneNumber && (
-                    <span
-                      style={{ color: isValidPhoneNumber ? "green" : "red" }}
-                    >
-                      {isValidPhoneNumber
-                        ? "Geçerli telefon numarası"
-                        : "Geçersiz telefon numarası"}
-                    </span>
-                  )}
-                </form>
-                <em>
-                  (Telefon numarınızı başında "0" olmadan yazınız.
-                  Örn:5320580805)
-                </em>
-              </div>
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label" htmlFor="message">
-                Mesajınız:
-              </label>
-              <textarea
-                className="form-control"
-                id="message"
-                onChange={(e) => setMessage(e.target.value)}
-                value={message}
-              />
-            </div>
-
-            <div className="mb-3">
-              <label>Size Nasıl Ulaşalım?</label>
-              <br />
-              <input
-                type="checkbox"
-                id="checkbox1"
-                name="checkbox1"
-                value="mail"
-                checked={selectedCheckboxes === "mail"}
-                onChange={handleCheckboxChange}
-              />
-              <label htmlFor="checkbox1">Mail</label>
-              <br />
-              <input
-                type="checkbox"
-                id="checkbox2"
-                name="checkbox"
-                value="telefon"
-                checked={selectedCheckboxes === "telefon"}
-                onChange={handleCheckboxChange}
-              />
-              <label htmlFor="checkbox2">Telefon</label>
-              <br />
-              <input
-                type="checkbox"
-                id="checkbox3"
-                name="checkbox3"
-                value="non-select"
-                checked={selectedCheckboxes === "non-select"}
-                onChange={handleCheckboxChange}
-              />
-              <label htmlFor="checkbox3">Fark Etmez</label>
-            </div>
-            <button className="btn btn-primary" type="submit">
-              {formStatus}
-            </button>
-            <button
-              className="btn btn-danger"
-              type="button"
-              onClick={handleReset}
+          </div>
+          <div className="mb-3">
+            <label htmlFor="bolum">Okuduğunuz Bölüm:</label>
+            <br />
+            <input
+              type="radio"
+              id="radio1"
+              name="radioButton"
+              value="pc-müh"
+              checked={selectedRadio === "pc-müh"}
+              onChange={handleRadioChange}
+            />
+            <label htmlFor="radio1">Bilgisayar Mühendsiliği</label>
+            <br />
+            <input
+              type="radio"
+              id="radio2"
+              name="radioButton"
+              value="yazilim"
+              checked={selectedRadio === "yazilim"}
+              onChange={handleRadioChange}
+            />
+            <label htmlFor="radio2">Yazılım Mühendsiliği</label>
+            <br />
+            <input
+              type="radio"
+              id="radio3"
+              name="radioButton"
+              value="bilisim"
+              checked={selectedRadio === "bilisim"}
+              onChange={handleRadioChange}
+            />
+            <label htmlFor="radio3">Bilişim Sistemleri</label>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="interests">İlgilendiğiniz Alanlar:</label>
+            <br></br>
+            <select
+              id="interests"
+              name="interests"
+              size="4"
+              multiple
+              className="select"
+              onChange={handleChange}
+              value={options}
             >
-              Temizle
-            </button>
-          </fieldset>
-        </form>
+              <option value="yapayzeka">Yapay Zeka</option>
+              <option value="siber">Siber Güvenlik</option>
+              <option value="web">Web</option>
+              <option value="veri">Veri Analizi</option>
+              <option value="machine">Makine Öğrenmesi</option>
+              <option value="dil">Doğal Dil İşleme</option>
+            </select>
+          </div>
+          <div>
+            <div className="container mt-5">
+              <form>
+                <div className="mb-3">
+                  <label className="form-label" htmlFor="phoneNumber">
+                    Telefon Numarası:
+                  </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="phoneNumber"
+                    value={phoneNumber}
+                    onChange={handlePhoneNumberChange}
+                  />
+                </div>
+                {phoneNumber && (
+                  <span style={{ color: isValidPhoneNumber ? "green" : "red" }}>
+                    {isValidPhoneNumber
+                      ? "Geçerli telefon numarası"
+                      : "Geçersiz telefon numarası"}
+                  </span>
+                )}
+              </form>
+              <em>
+                (Telefon numarınızı başında "0" olmadan yazınız. Örn:5320580805)
+              </em>
+            </div>
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="message">
+              Mesajınız:
+            </label>
+            <textarea
+              className="form-control"
+              id="message"
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label>Size Nasıl Ulaşalım?</label>
+            <br />
+            <input
+              type="checkbox"
+              id="checkbox1"
+              name="checkbox1"
+              value="mail"
+              checked={selectedCheckboxes === "mail"}
+              onChange={handleCheckboxChange}
+            />
+            <label htmlFor="checkbox1">Mail</label>
+            <br />
+            <input
+              type="checkbox"
+              id="checkbox2"
+              name="checkbox"
+              value="telefon"
+              checked={selectedCheckboxes === "telefon"}
+              onChange={handleCheckboxChange}
+            />
+            <label htmlFor="checkbox2">Telefon</label>
+            <br />
+            <input
+              type="checkbox"
+              id="checkbox3"
+              name="checkbox3"
+              value="non-select"
+              checked={selectedCheckboxes === "non-select"}
+              onChange={handleCheckboxChange}
+            />
+            <label htmlFor="checkbox3">Fark Etmez</label>
+          </div>
+          <button className="btn btn-primary" type="submit" onClick={onSubmit}>
+            {formStatus}
+          </button>
+          <button
+            className="btn btn-danger"
+            type="button"
+            onClick={handleReset}
+          >
+            Temizle
+          </button>
+        </fieldset>
       </div>
     </div>
   );
